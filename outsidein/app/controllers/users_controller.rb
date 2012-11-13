@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to @user, notice: 'User successfully created'
     else
-      redirect_to users_path, notice: 'Failed to create new user'
+      render action: "new", notice: 'Failed to create new user'
     end
   end
 end

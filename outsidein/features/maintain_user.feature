@@ -5,7 +5,7 @@ Feature: Maintain User
 
     Scenario: Create a new Account
         Given I am not authenticated
-        When I go to the register page
+        When I go to the "register" page
         And I fill in "user_username" with "bobby"
         And I fill in "user_email" with "test@abc.com"
         And I fill in "user_password" with "abc"
@@ -16,7 +16,7 @@ Feature: Maintain User
 
     Scenario Outline: Create a new Account - fail
         Given I am not authenticated
-        When I go to the register page
+        When I go to the "register" page
         And I fill in "user_username" with <username>
         And I fill in "user_email" with <email>
         And I fill in "user_password" with <password>
@@ -30,23 +30,29 @@ Feature: Maintain User
             | "bobby"  | ""             | "abc"     | "abc"            | "Email cannot be empty"    |
             | "bobby"  | "test@abc.com" | "abc1"    | "abc2"           | "Passwords should match"   |
 
+    Scenario: View user account details - Owner
+        Given the user "bobby" exists
+        When I go to the "account management page" for "bobby"
+        Then I should see a form prefilled with data about "bobby" on the page
 
-    Scenario: View user account details
-        Given the user with id "1" exists
-        When I go to the "account management page" for user with id "1"
-        Then I should see a form prefilled with data about user with id "1" on the page
+    Scenario: View user account details - Another User
+        Given the user "bobby" exists
+        And the user "sally" exists
+        And I am authenticated as "sally"
+        When I go to the "account management page" for "bobby"
+        Then I should see "You do not have permission to view this page"
 
     Scenario: Edit user account details
-        Given the user with id "1" exists
-        When I go to the "account management page" for user with id "1"
+        Given the user "bobby" exists
+        When I go to the "account management page" for "bobby"
         And I fill in "user_email" with "changed@new.com"
         And I fill in "user_username" with "sammy"
         And I press "Update User"
-        Then the user with id "1" should have "changed@new.com" as "email"
-        And the user with id "1" should have "sammy" as "username"
+        Then "sammy" should have "changed@new.com" as "email"
+        And "sammy" should have "sammy" as "username"
         And I should see "User successfully updated"
 
     Scenario: View user profile page
-        Given the user with id "1" exists
-        When I go to the "profile page" for user with id "1"
-        Then I should see details about user with id "1" on the page
+        Given the user "bobby" exists
+        When I go to the "profile page" for "bobby"
+        Then I should see details about "bobby" on the page

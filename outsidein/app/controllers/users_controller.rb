@@ -15,12 +15,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update_attributes(params[:user])
 
-    redirect_to @user, notice: 'User successfully updated'
+    flash[:message] = 'User successfully updated'
+    redirect_to @user 
   end
 
   def edit
-    @user = User.find(params[:id])
-    @enablePassword = true
+    if current_user == @user
+      @user = User.find(params[:id])
+      @enablePassword = true
+    else
+      flash[:message] = 'You do not have permission to view this page'
+      redirect_to :users
+    end
   end
 
   def new 
@@ -31,9 +37,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     
     if @user.save
-      redirect_to @user, notice: 'User successfully created'
+      flash[:message] = 'User successfully created'
+      redirect_to @user
     else
-      render action: "new", notice: 'Failed to create new user'
+      flash[:message] = 'Failed to create new user'
+      render action: "new"
     end
   end
 end

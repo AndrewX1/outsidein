@@ -1,6 +1,11 @@
 Outsidein::Application.routes.draw do
-  match 'users/sign_out' => "users#sign_out", :as => :sign_out
+  get "password_resets/new"
+
+  match 'logout' => "user_sessions#destroy", :as => :logout
+  match 'login' => "user_sessions#new", :as => :login
   resources :users
+  resources :user_sessions
+  resources :password_resets
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

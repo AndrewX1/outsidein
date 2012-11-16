@@ -8,7 +8,19 @@
 </head>
 <body>
 
-<%= yield %>
+  <header>
+  <% if logged_in? %>
+    Logged in as <%= current_user.username %>
+  <% else %>
+    Please sign in
+  <% end%>
+  </header>
+
+  <% if flash[:message] %>
+    <div id="message"><%= flash[:message] %></div>
+  <% end %>
+
+  <%= yield %>
 
 </body>
 </html>

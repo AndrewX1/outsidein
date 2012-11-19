@@ -16,6 +16,6 @@ class UserSessionsController < ApplicationController
   def destroy
     logout
     flash[:message] = 'Logged out.'
-    redirect_to :users
+    redirect_to :root
   end
 end

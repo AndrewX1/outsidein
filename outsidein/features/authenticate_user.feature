@@ -34,6 +34,14 @@ Feature: Maintain User
             | "bobby"           | ""       | ""       | "Login failed"  |
             | "bobby"           | "sally"  | "abc"    | "Login failed"  |
 
+    Scenario: Logout
+        Given the user "bobby" exists
+        And I am authenticated as "bobby"
+        When I go to the "logout" page
+        Then I should see "Please sign in"
+        And I should see "Logged out"
+        And I should be redirected to "root"
+
     Scenario: Reset password - link
         Given I am not authenticated
         When I go to the "login" page

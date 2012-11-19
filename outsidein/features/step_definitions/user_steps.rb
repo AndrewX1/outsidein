@@ -41,6 +41,8 @@ When /^I go to the "(.*?)" page$/ do |page|
     visit('/users/new')
   when 'login'
     visit('/login')
+  when 'logout'
+    visit('/logout')
   end
 end
 
@@ -119,4 +121,13 @@ Then /^be able to login as "(.*?)" with "(.*?)"$/ do |username, password|
   fill_in "password", :with => password
   click_button "Login"
   page.should have_content "Logged in as #{username}"
+end
+
+Then /^I should be redirected to "(.*?)"$/ do |page|
+  case page
+  when 'root'
+    path = root_path
+  end
+
+  current_path.should == path
 end

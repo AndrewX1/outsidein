@@ -1,6 +1,7 @@
 Outsidein::Application.routes.draw do
   get "password_resets/new"
 
+  root :to => 'users#index'
   match 'logout' => "user_sessions#destroy", :as => :logout
   match 'login' => "user_sessions#new", :as => :login
   resources :users

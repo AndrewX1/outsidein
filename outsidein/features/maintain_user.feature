@@ -32,6 +32,7 @@ Feature: Maintain User
 
     Scenario: View user account details - Owner
         Given the user "bobby" exists
+        And I am authenticated as "bobby"
         When I go to the "account management page" for "bobby"
         Then I should see a form prefilled with data about "bobby" on the page
 
@@ -44,6 +45,7 @@ Feature: Maintain User
 
     Scenario: Edit user account details
         Given the user "bobby" exists
+        And I am authenticated as "bobby"
         When I go to the "account management page" for "bobby"
         And I fill in "user_email" with "changed@new.com"
         And I fill in "user_username" with "sammy"

@@ -1,14 +1,22 @@
 class UsersController < ApplicationController
   def index
-
+    @users = User.all
   end
 
   def show
     @user = User.find(params[:id])
   end
 
-  def sign_out
+  def destroy
+    user = User.find(params[:id])
+    if can? :update, user 
+      user.destroy
 
+      flash[:message] = 'User successfully deleted'
+    else 
+      flash[:message] = 'You do not have permission to delete this user'
+    end
+    redirect_to :root
   end
 
   def update

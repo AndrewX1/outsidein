@@ -1,4 +1,11 @@
-
-
-TO DO.
-you are on users#index
+<ul id="user-list">
+  <% @users.each do |user| %>
+    <li>
+      <%= user.username %>
+      <% if can? :update, user %>
+        <%= link_to '[ edit ]', edit_user_path(user), :id => 'edit-'+user.username %>
+        <%= link_to '[ delete ]', user, method: :delete, :id => 'delete-'+user.username %> 
+      <% end %>
+    </li>
+  <% end %>
+</ul>

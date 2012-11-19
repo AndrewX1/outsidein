@@ -35,6 +35,12 @@ Given /^I have gone through requesting password reset for "(.*?)"$/ do |username
   click_button "Reset Password"
 end
 
+Given /^the user "(.*?)" is a "(.*?)"$/ do |username, role|
+  user = User.find_by_username(username)
+  user.role = role
+  user.save
+end
+
 When /^I go to the "(.*?)" page$/ do |page|
   case page
   when 'register'
@@ -43,6 +49,8 @@ When /^I go to the "(.*?)" page$/ do |page|
     visit('/login')
   when 'logout'
     visit('/logout')
+  when 'user list'
+    visit('/users')
   end
 end
 
@@ -65,6 +73,10 @@ end
 
 When /^I click the link "(.*?)"$/ do |link|
   click_link link
+end
+
+When /^I click on "(.*?)" for "(.*?)"$/ do |action_name, username|
+  click_link action_name+'-'+username
 end
 
 When /^I click on the reset password link in the email for "(.*?)"$/ do |username|
@@ -129,5 +141,9 @@ Then /^I should be redirected to "(.*?)"$/ do |page|
     path = root_path
   end
 
-  current_path.should == path
+  current_path.should == root + ''
+end
+
+Then /^the user "(.*?)" should no longer exist$/ do |username|
+  User.find_by_username(username).should == nil
 end

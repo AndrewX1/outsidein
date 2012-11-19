@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   validates_presence_of :username, :message => "Username cannot be empty"
   validates_presence_of :email, :message => "Email cannot be empty"
 
+  ROLES = %w[admin]
+
   def send_password_reset
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now

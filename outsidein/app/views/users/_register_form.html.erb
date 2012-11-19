@@ -2,6 +2,7 @@
   <%= f.input :id, :as => :hidden, :input_html => {:value => @user.id} %>
   <%= f.input :username %>
   <%= f.input :email %>
+  <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
   <% unless @enablePassword %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>

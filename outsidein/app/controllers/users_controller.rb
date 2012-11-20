@@ -29,7 +29,8 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    if current_user == @user
+    #if current_user == @user
+    if can? :update, @user
       @enablePassword = true
     else
       flash[:message] = 'You do not have permission to view this page'

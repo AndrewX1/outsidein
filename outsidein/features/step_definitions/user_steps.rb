@@ -141,7 +141,7 @@ Then /^I should be redirected to "(.*?)"$/ do |page|
     path = root_path
   end
 
-  current_path.should == root + ''
+  current_path.should == path
 end
 
 Then /^the user "(.*?)" should no longer exist$/ do |username|

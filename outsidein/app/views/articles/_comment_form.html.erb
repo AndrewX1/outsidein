@@ -1,0 +1,6 @@
+<%= simple_form_for(@comment, :html => {:novalidate => true}) do |f| %>
+  <%= f.input :article_id, :as => :hidden %>
+  <%= f.input :author_name, :as => :hidden, :input_html => {:value => current_user.username} %>
+  <%= f.input :body, :as => :text, :label => 'Your Comment' %>
+  <%= f.button :submit, 'Add Comment' %>
+<% end %>

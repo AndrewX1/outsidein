@@ -1,7 +1,7 @@
 require 'spec_helper'
   describe Comment do
     before :all do
-      @comment = Comment.new(body: "this is a comment")
+      @comment = Comment.new(body: "this is a comment", author_name: "sam")
      end
   
   describe "#new" do

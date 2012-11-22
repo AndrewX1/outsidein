@@ -3,6 +3,13 @@ Given /^the article "(.*?)" with the body of "(.*?)" exists$/ do |title, body|
   @article.save
 end
 
+Given /^the comment "(.*?)" for article "(.*?)" exists$/ do |comment, article_name|
+  article = Article.find_by_title(article_name)
+  comment = Comment.new(body: comment, author_name: 'bob')
+  comment.article_id = article.id
+  comment.save
+end
+
 Then /^the article "(.*?)" should exist$/ do |title|
   Article.find_by_title(title).should_not == nil
 end

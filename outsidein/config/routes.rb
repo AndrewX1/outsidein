@@ -1,4 +1,6 @@
 Outsidein::Application.routes.draw do
+  resources :articles
+
   get "password_resets/new"
 
   root :to => 'users#index'

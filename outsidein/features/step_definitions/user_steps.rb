@@ -41,56 +41,13 @@ Given /^the user "(.*?)" is a "(.*?)"$/ do |username, role|
   user.save
 end
 
-When /^I go to the "(.*?)" page$/ do |page|
-  case page
-  when 'register'
-    visit('/users/new')
-  when 'login'
-    visit('/login')
-  when 'logout'
-    visit('/logout')
-  when 'user list'
-    visit('/users')
-  end
-end
-
-When /^I go to the "(.*?)" for "(.*?)"$/ do |page, username|
-  case page
-  when 'account management page'
-    visit edit_user_path(User.find_by_username(username))
-  when 'profile page'
-    visit user_path(User.find_by_username(username))
-  end
-end
-
-When /^I fill in "(.*?)" with "(.*?)"$/ do |field_name, field_value|
-  fill_in field_name, :with => field_value
-end
-
-When /^I press "(.*?)"$/ do |submit|
-  click_button submit 
-end
-
-When /^I click the link "(.*?)"$/ do |link|
-  click_link link
-end
-
-When /^I click on "(.*?)" for "(.*?)"$/ do |action_name, username|
-  click_link action_name+'-'+username
-end
-
 When /^I click on the reset password link in the email for "(.*?)"$/ do |username|
   user = User.find_by_username(username)
   visit(edit_password_reset_url(user.password_reset_token))
 end
 
-
 Then /^the user with "(.*?)" "(.*?)" should exist$/ do |fieldname, value|
   User.where(fieldname => value).first.should_not == []
-end
-
-Then /^I should see "(.*?)"$/ do |message|
-  page.should have_content message
 end
 
 Then /^I should see a form prefilled with data about "(.*?)" on the page$/ do |username|
@@ -109,7 +66,7 @@ Then /^I should see details about "(.*?)" on the page$/ do |username|
   page.should have_content user.salt
 end
 
-Then /^"(.*?)" should have "(.*?)" as "(.*?)"$/ do |username, value, fieldname|
+Then /^the user "(.*?)" should have "(.*?)" as "(.*?)"$/ do |username, value, fieldname|
   user = User.find_by_username(username)
   user.send(fieldname).should eql value
 end
@@ -133,15 +90,6 @@ Then /^be able to login as "(.*?)" with "(.*?)"$/ do |username, password|
   fill_in "password", :with => password
   click_button "Login"
   page.should have_content "Logged in as #{username}"
-end
-
-Then /^I should be redirected to "(.*?)"$/ do |page|
-  case page
-  when 'root'
-    path = root_path
-  end
-
-  current_path.should == path
 end
 
 Then /^the user "(.*?)" should no longer exist$/ do |username|

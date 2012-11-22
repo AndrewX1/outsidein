@@ -11,8 +11,9 @@ Feature: Admin
         When I go to the "user list" page
         Then I should see "sally"
         And I should see "bobby"
-        And I should see "edit"
-        And I should see "delete"
+        And I should see "Show"
+        And I should see "Edit"
+        And I should see "Destroy"
 
     Scenario: Delete user account -Admin
         Given the user "bobby" exists
@@ -20,7 +21,7 @@ Feature: Admin
         And the user "sally" exists
         And I am authenticated as "bobby"
         When I go to the "user list" page
-        And I click on "delete" for "sally"
+        And I click on "destroy" for "Users" with "username" of "sally"
         Then I should see "User successfully deleted"
         And the user "sally" should no longer exist
 
@@ -41,6 +42,6 @@ Feature: Admin
         And I fill in "user_email" with "test@testing.com"
         And I fill in "user_username" with "david"
         And I press "Update User"
-        Then "david" should have "test@testing.com" as "email"
-        And "david" should have "david" as "username"
+        Then the user "david" should have "test@testing.com" as "email"
+        And the user "david" should have "david" as "username"
         And I should see "User successfully updated"

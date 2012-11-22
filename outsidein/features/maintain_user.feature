@@ -50,8 +50,8 @@ Feature: Maintain User
         And I fill in "user_email" with "changed@new.com"
         And I fill in "user_username" with "sammy"
         And I press "Update User"
-        Then "sammy" should have "changed@new.com" as "email"
-        And "sammy" should have "sammy" as "username"
+        Then the user "sammy" should have "changed@new.com" as "email"
+        And the user "sammy" should have "sammy" as "username"
         And I should see "User successfully updated"
 
     Scenario: View user profile page

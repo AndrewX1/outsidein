@@ -47,7 +47,7 @@ When /^I click on "(.*?)" for "(.*?)" with "(.*?)" of "(.*?)"$/ do |action, tabl
   )
   record = result.first
 
-  click_link action + '-' + record['id'].to_s
+  click_link action + '-' + table.downcase + '-' + record['id'].to_s
 end
 
 Then /^I should see "(.*?)"$/ do |message|

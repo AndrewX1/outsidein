@@ -21,7 +21,7 @@
       </td>
       <td>
         <% if can? :update, user %>
-          <%= link_to 'Destroy', user, method: :delete, :id => 'destroy-'+user.id.to_s %>
+          <%= link_to 'Destroy', user, method: :delete, :id => 'destroy-users-'+user.id.to_s %>
         <% end %>
       </td>
     </tr>

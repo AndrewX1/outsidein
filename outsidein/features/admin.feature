@@ -45,3 +45,13 @@ Feature: Admin
         Then the user "david" should have "test@testing.com" as "email"
         And the user "david" should have "david" as "username"
         And I should see "User successfully updated"
+
+    Scenario: Remove user comments - Admin
+        Given the user "bobby" exists
+        And the user "bobby" is a "admin"
+        And I am authenticated as "bobby"
+        And the article "hi world" with the body of "some text" exists
+        And the comment "this is comment" for article "hi world" exists
+        When I go to the "article page" for "hi world"
+        And I click on "destroy" for "Comments" with "body" of "this is comment"
+        Then the comment "this is comment" should no longer exist

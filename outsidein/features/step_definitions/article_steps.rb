@@ -22,3 +22,7 @@ end
 Then /^the article "(.*?)" should no longer exist$/ do |title|
   Article.find_by_title(title).should == nil
 end
+
+Then /^the comment "(.*?)" should no longer exist$/ do |title|
+  Comment.find_by_body(title).should == nil
+end
